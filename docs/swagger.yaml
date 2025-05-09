@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: API Absensi WiFi
+  version: 1.0.0
+  description: Dokumentasi untuk sistem absensi berbasis WiFi
+servers:
+  - url: http://localhost:5000/api
+
+paths:
+  /absensi:
+    post:
+      summary: Kirim data absensi dari scanner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  nama:
+                    type: string
+                  mac_address:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+      responses:
+        '200':
+          description: Data absensi berhasil diproses
+        '500':
+          description: Gagal proses absensi
+
+  /absensi/jumlah/{tanggal}:
+    get:
+      summary: Rekap jumlah kehadiran berdasarkan tanggal
+      parameters:
+        - name: tanggal
+          in: path
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Tanggal dalam format YYYY-MM-DD
+      responses:
+        '200':
+          description: Data rekap jumlah kehadiran
+        '500':
+          description: Gagal ambil data kehadiran
