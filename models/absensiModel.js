@@ -53,7 +53,7 @@ exports.updateWaktuKeluarPesertaTidakAktif = async () => {
 // Mengambil data absensi hari ini
 exports.getAbsensiHariIni = async () => {
   const [rows] = await db.query(
-    'SELECT mac_address, nama, waktu_masuk, waktu_keluar, terakhir_terlihat FROM absensi WHERE DATE(waktu_masuk) = CURDATE()'
+    'SELECT mac_address, nama, waktu_masuk, waktu_keluar, terakhir_terlihat FROM absensi WHERE DATE(waktu_masuk) = CURDATE() ORDER BY waktu_masuk DESC'
   );
   return rows;
 };
